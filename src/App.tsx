@@ -1,56 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
+import { useSelector } from 'react-redux';
 import './App.css';
+import { useAppDispatch } from './app/hooks';
+import { selectPuzzle, usePuzzle } from './state/selectors';
+import { loadPuzzle } from './state/puzzleSlice';
+import { loadSample, loadSample4, loadSample6 } from './state/loader';
+import PuzzleComponent from './components/Puzzle';
+import { Puzzle } from './model/puzzle';
 
 function App() {
+  const { dispatch, state: puzzleState } = usePuzzle();
+
+  // const puzzle = puzzleState.size > 0 ? new Puzzle(puzzleState, dispatch) : null;
+
+  const onLoadClick = () => {
+    dispatch(loadPuzzle(loadSample(6)));
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+      {puzzleState.size > 0 &&
+        <PuzzleComponent/>
+      }
+
+      {puzzleState.size === 0 &&
+        <button onClick={onLoadClick}>Load Puzzle</button>
+      }
     </div>
   );
 }
