@@ -1,16 +1,17 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
 import styled from 'styled-components';
 import { Puzzle } from '../model/puzzle';
-import { PuzzleState } from '../state/interfaces';
-import { selectPuzzle, usePuzzle } from '../state/selectors';
-import { byRows, getXY, selectXY } from '../utilities/array';
+import { usePuzzle } from '../state/selectors';
+import { byRows, selectXY } from '../utilities/array';
 import SquareComponent from './Square';
 
-interface PuzzleProps {
-	state: PuzzleState;
-}
-
+/**
+ * Renders the Puzzle component
+ * Does not require any props
+ * It will render the puzzle from the state, via usePuzzle()
+ *
+ * @return {*}
+ */
 function PuzzleComponent() {
 	const { state, dispatch } = usePuzzle();
 	const puzzle = new Puzzle(state, dispatch);
@@ -36,10 +37,11 @@ function PuzzleComponent() {
 const PuzzleContainer = styled.div<{ size: number }>`
 	background: #FF222222;
 	border: 2px black solid;
-	margin: auto;
+	cursor: default;
+
 	width: 90vh;
 	height: 90vh;
-	cursor: default;
+	margin: auto;
 
 	display: flex;
 	flex-direction: column;

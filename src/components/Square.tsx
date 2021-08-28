@@ -41,6 +41,12 @@ interface SquareProps {
 	state: SquareState
 }
 
+/**
+ * Renders the Square component
+ * 
+ * @param props 
+ * @returns 
+ */
 function SquareComponent(props: SquareProps) {
 	const { state, square } = props;
 	const dispatch = useAppDispatch();

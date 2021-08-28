@@ -42,6 +42,8 @@ export class Square {
 	}
 }
 
+// The following is no longer valid
+
 // Any operations that affect state need to be set up in the proxy handler
 // They should be designed as if it's not proxied though
 // For instance, within the square class, SelectDigit() should be written normally
@@ -51,17 +53,17 @@ export class Square {
 // for derived values (ie digit: unavailable) [actually I'm not sure about that because
 // I think it would need to be recalculated as soon as React rerenders]
 
-export const squareHandler = (dispatch: AppDispatch) => {
-	return {
-		set: function (square: Square, prop: string, value: any) {
-			if (prop === 'selected') {
-				const { x, y } = square;
-				const digit = value;
-				dispatch(selectDigit({ x, y, digit }));
-			}
+// export const squareHandler = (dispatch: AppDispatch) => {
+// 	return {
+// 		set: function (square: Square, prop: string, value: any) {
+// 			if (prop === 'selected') {
+// 				const { x, y } = square;
+// 				const digit = value;
+// 				dispatch(selectDigit({ x, y, digit }));
+// 			}
 
-			square[prop as keyof typeof square] = value;
-			return true;
-		}
-	}
-}
+// 			square[prop as keyof typeof square] = value;
+// 			return true;
+// 		}
+// 	}
+// }

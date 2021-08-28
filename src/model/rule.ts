@@ -8,6 +8,7 @@ export enum RuleTypes {
 	Odd,
 	Even,
 	Compare,
+	Straight,
 }
 
 export function ruleType(rule: string) {
@@ -31,6 +32,8 @@ export function ruleType(rule: string) {
 			return RuleTypes.Even;
 		case '<':
 			return RuleTypes.Compare;
+		case 's':
+			return RuleTypes.Straight;
 		default:
 			return RuleTypes.None;
 	}
@@ -56,16 +59,21 @@ export function ruleToString(rule: RuleTypes, display = false) {
 			return display ? 'Even' : 'e';
 		case RuleTypes.Compare:
 			return '<';
+		case RuleTypes.Straight:
+			return display ? 's' : 'Straight';
 	}
 }
 
+/**
+ * Represents a rule for a square groups.
+ *
+ * Currently is just a data class, but eventually will provide related support
+ * for solving and hinting
+ */
 export class Rule {
 	type: RuleTypes;
 	value: number;
 
-	/**
-	 *
-	 */
 	constructor(type: RuleTypes, value: number = 0) {
 		this.type = type;
 		this.value = value;
@@ -76,41 +84,9 @@ export class Rule {
 	}
 
 	static fromCode(code: string) {
-		let type: RuleTypes;
+		const type = ruleType(code);
+		const value = parseInt(code.slice(1));
 
-		switch (code[0]) {
-			case '_':
-				type = RuleTypes.None;
-				break;
-			case '=':
-				type = RuleTypes.Equals;
-				break;
-			case '+':
-				type = RuleTypes.Add;
-				break;
-			case '-':
-				type = RuleTypes.Subtract;
-				break;
-			case '*':
-				type = RuleTypes.Multiply;
-				break;
-			case '/':
-				type = RuleTypes.Divide;
-				break;
-			case 'o':
-				type = RuleTypes.Odd;
-				break;
-			case 'e':
-				type = RuleTypes.Even;
-				break;
-			case '<':
-				type = RuleTypes.Compare;
-				break;
-			default:
-				type = RuleTypes.None;
-				break;
-		}
-
-		return new Rule(type, parseInt(code.slice(1)));
+		return new Rule(type, value);
 	}
 }
