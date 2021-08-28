@@ -1,5 +1,5 @@
 import { GroupState } from "../state/interfaces";
-import { Rule } from "./rule";
+import { Rule, RuleTypes } from "./rule";
 import { Square } from "./square";
 
 /**
@@ -17,5 +17,9 @@ export class Group {
 		this.state = groupState;
 		this.rule = new Rule(groupState.rule, groupState.value);
 		this.color = groupState.color;
+	}
+
+	addSquare(square: Square) {
+		this.squares.push(square);
 	}
 }

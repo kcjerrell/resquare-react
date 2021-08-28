@@ -58,7 +58,7 @@ export function ruleToString(rule: RuleTypes, display = false) {
 		case RuleTypes.Even:
 			return display ? 'Even' : 'e';
 		case RuleTypes.Compare:
-			return '<';
+			return '<>';
 		case RuleTypes.Straight:
 			return display ? 's' : 'Straight';
 	}

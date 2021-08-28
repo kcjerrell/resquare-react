@@ -1,6 +1,7 @@
 import { ruleType, RuleTypes as RT } from "../model/rule";
 import { ColorAssignment } from "../theme/groupColors";
-import { PuzzleState, RawPuzzleData, SquareState } from "./interfaces";
+import { getBordering, getXY, selectXY } from "../utilities/array";
+import { GroupState, PuzzleState, RawPuzzleData, SquareState } from "./interfaces";
 
 export function loadSample4(): RawPuzzleData {
 	const squareValues = [
@@ -182,10 +183,12 @@ export function buildPuzzleState(data: RawPuzzleData): PuzzleState {
 
 	const size = Math.sqrt(squareValues.length);
 
+	// calculate color assignments
 	const ca = new ColorAssignment(squareGroups, groupRules.length, size);
 	const colors = ca.getColors();
 
-	const groups = groupRules.map((g, i) => {
+	// create GroupStates
+	const groups: GroupState[] = groupRules.map((g, i) => {
 		return {
 			rule: g,
 			value: groupValues[i],
@@ -193,6 +196,7 @@ export function buildPuzzleState(data: RawPuzzleData): PuzzleState {
 		};
 	});
 
+	// create SquareStates
 	const squares: SquareState[] = squareValues.map((value, i) => {
 		return {
 			solution: value,
@@ -202,11 +206,30 @@ export function buildPuzzleState(data: RawPuzzleData): PuzzleState {
 		};
 	});
 
+	// Assign group keys
 	const keyed: number[] = [];
 	for (const square of squares) {
 		if (!keyed.includes(square.group)) {
 			square.isGroupKey = true;
 			keyed.push(square.group);
+		}
+	}
+
+	// Add comparisons for comparison groups
+	for (let i = 0; i < squares.length; i++) {
+		const square = squares[i];
+		const group = square.group;
+		if (groups[group].rule === RT.Compare) {
+			const xy = getXY(i, size);
+			const neighbors = getBordering(squares, size, xy);
+
+			if (neighbors.right != null && neighbors.right.group === group) {
+				square.comparisonRight = square.solution - neighbors.right.solution;
+			}
+
+			if (neighbors.bottom != null && neighbors.bottom.group === group) {
+				square.comparisonBottom = square.solution - neighbors.bottom.solution;
+			}
 		}
 	}
 

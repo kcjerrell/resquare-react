@@ -89,6 +89,8 @@ export const SquareContainer = styled.div<SquareContainerProps>`
 		box-shadow .2s ease;
 
 		box-shadow: 0px 0px 0px 0px #00000000;
+
+		z-index: 100;
 	}
 
 	.excluded {
@@ -137,5 +139,32 @@ export const SquareContainer = styled.div<SquareContainerProps>`
 		/* background: #FFFFFF44; */
 		font-size: ${props => digitsizes[props.size - 4]}rem;
 		font-weight: 500;
+	}
+`;
+
+interface CompareSignProps {
+	angle: number;
+	size: number;
+}
+
+export const CompareSign = styled.div<CompareSignProps>`
+	&.compare-right {
+		font-size: ${props => digitsizes[props.size - 4] + 1}rem;
+		position: absolute;
+		right: 0;
+		z-index: 80;
+		transform: translate(50%, -50%)
+							 rotate(${props => props.angle}deg);
+		top: 50%;
+	}
+
+	&.compare-down {
+		font-size: ${props => digitsizes[props.size - 4] + 1}rem;
+		position: absolute;
+		right: 50%;
+		transform: translate(50%, 50%)
+							 rotate(${props => props.angle}deg);
+		bottom: 0;
+		z-index: 80;
 	}
 `;

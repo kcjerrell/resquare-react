@@ -1,12 +1,9 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import './App.css';
-import { useAppDispatch } from './app/hooks';
-import { selectPuzzle, usePuzzle } from './state/selectors';
+import { usePuzzle } from './state/selectors';
 import { loadPuzzle } from './state/puzzleSlice';
-import { loadSample, loadSample4, loadSample6 } from './state/loader';
+import { loadSample } from './state/loader';
 import PuzzleComponent from './components/Puzzle';
-import { Puzzle } from './model/puzzle';
 
 function App() {
   const { dispatch, state: puzzleState } = usePuzzle();
@@ -14,7 +11,7 @@ function App() {
   // const puzzle = puzzleState.size > 0 ? new Puzzle(puzzleState, dispatch) : null;
 
   const onLoadClick = () => {
-    dispatch(loadPuzzle(loadSample(6)));
+    dispatch(loadPuzzle(loadSample(4)));
   }
 
   return (

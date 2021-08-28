@@ -7,6 +7,8 @@ export interface SquareState {
 	selected: number;
 	excluded: number[];
 	isGroupKey?: boolean;
+	comparisonRight?: number;
+	comparisonBottom?: number;
 }
 
 export interface GroupState {

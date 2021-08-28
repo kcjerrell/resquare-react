@@ -79,7 +79,7 @@ export class Puzzle {
 			// square = new Proxy(square, squareHandler(dispatch));
 
 			square.unavailable = [...rows[y], ...columns[x]];
-			this.groups[ss.group].squares.push(square);
+			this.groups[ss.group].addSquare(square);
 
 			return square;
 		});
