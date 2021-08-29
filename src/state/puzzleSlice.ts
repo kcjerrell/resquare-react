@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { byGroup, selectByXY, selectXY } from "../utilities/array";
 import { PuzzleState, RawPuzzleData } from "./interfaces";
-import { buildPuzzleState } from "./loader";
+import { buildPuzzleState } from "./stateBuilder";
 
 export interface DigitPayload {
 	x: number,
@@ -13,6 +13,7 @@ const initialState: PuzzleState = {
 	size: 0,
 	squares: [],
 	groups: [],
+	hoverGroup: -1,
 }
 
 export const puzzleSlice = createSlice({
@@ -69,9 +70,13 @@ export const puzzleSlice = createSlice({
 				}
 			}
 		},
+
+		setHoverGroup: (state, action: PayloadAction<number>) => {
+			state.hoverGroup = action.payload;
+		},
 	}
 });
 
-export const { loadPuzzle, selectDigit, excludeDigit, groupExclude } = puzzleSlice.actions;
+export const { loadPuzzle, selectDigit, excludeDigit, groupExclude, setHoverGroup } = puzzleSlice.actions;
 
 export default puzzleSlice.reducer;

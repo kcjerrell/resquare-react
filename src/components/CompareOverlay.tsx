@@ -31,14 +31,14 @@ function CompareOverlay(props: CompareOverlayProps) {
 			{compareRight &&
 				<CompareOverlayRight angle={angle} size={4}>
 					<svg width={size} height={size} viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg">
-						<path d="M0 0L19.5 10L0 20" transform="translate(1 1)" id="New-shape-2" fill={fill} fill-rule="evenodd" stroke={stroke} stroke-width={strokeWidth} />
+						<path d="M0 0L19.5 10L0 20" transform="translate(1 1)" id="New-shape-2" fill={fill} fillRule="evenodd" stroke={stroke} strokeWidth={strokeWidth} />
 					</svg>
 				</CompareOverlayRight>
 			}
 			{compareDown &&
 				<CompareOverlayDown angle={angle} size={4}>
 					<svg width={size} height={size} viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg">
-						<path d="M0 0L19.5 10L0 20" transform="translate(1 1)" id="New-shape-2" fill={fill} fill-rule="evenodd" stroke={stroke} stroke-width={strokeWidth} />
+						<path d="M0 0L19.5 10L0 20" transform="translate(1 1)" id="New-shape-2" fill={fill} fillRule="evenodd" stroke={stroke} strokeWidth={strokeWidth} />
 					</svg>
 				</CompareOverlayDown>
 			}

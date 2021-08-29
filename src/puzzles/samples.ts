@@ -1,7 +1,6 @@
-import { ruleType, RuleTypes as RT } from "../model/rule";
-import { ColorAssignment } from "../theme/groupColors";
-import { getBordering, getXY, selectXY } from "../utilities/array";
-import { GroupState, PuzzleState, RawPuzzleData, SquareState } from "./interfaces";
+import { ruleType } from "../model/rule";
+import { RawPuzzleData } from "../state/interfaces";
+import { RuleTypes as RT } from '../model/rule';
 
 export function loadSample4(): RawPuzzleData {
 	const squareValues = [
@@ -176,66 +175,4 @@ function extractGroups(groupInfo: string) {
 	const groupValues = groups.map(g => parseInt(g.slice(1)));
 
 	return { groupRules, groupValues };
-}
-
-export function buildPuzzleState(data: RawPuzzleData): PuzzleState {
-	const { groupRules, groupValues, squareGroups, squareValues } = data;
-
-	const size = Math.sqrt(squareValues.length);
-
-	// calculate color assignments
-	const ca = new ColorAssignment(squareGroups, groupRules.length, size);
-	const colors = ca.getColors();
-
-	// create GroupStates
-	const groups: GroupState[] = groupRules.map((g, i) => {
-		return {
-			rule: g,
-			value: groupValues[i],
-			color: colors[i]
-		};
-	});
-
-	// create SquareStates
-	const squares: SquareState[] = squareValues.map((value, i) => {
-		return {
-			solution: value,
-			group: squareGroups[i],
-			selected: 0,
-			excluded: []
-		};
-	});
-
-	// Assign group keys
-	const keyed: number[] = [];
-	for (const square of squares) {
-		if (!keyed.includes(square.group)) {
-			square.isGroupKey = true;
-			keyed.push(square.group);
-		}
-	}
-
-	// Add comparisons for comparison groups
-	for (let i = 0; i < squares.length; i++) {
-		const square = squares[i];
-		const group = square.group;
-		if (groups[group].rule === RT.Compare) {
-			const xy = getXY(i, size);
-			const neighbors = getBordering(squares, size, xy);
-
-			if (neighbors.right != null && neighbors.right.group === group) {
-				square.comparisonRight = square.solution - neighbors.right.solution;
-			}
-
-			if (neighbors.bottom != null && neighbors.bottom.group === group) {
-				square.comparisonBottom = square.solution - neighbors.bottom.solution;
-			}
-		}
-	}
-
-	return {
-		size,
-		groups,
-		squares
-	};
 }

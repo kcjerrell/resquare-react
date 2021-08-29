@@ -1,9 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Puzzle } from '../model/puzzle';
-import { usePuzzle } from '../state/selectors';
+import { PuzzleState } from '../state/interfaces';
 import { byRows, selectXY } from '../utilities/array';
 import SquareComponent from './Square';
+
+interface PuzzleProps {
+	state: PuzzleState;
+	puzzle: Puzzle;
+}
 
 /**
  * Renders the Puzzle component
@@ -12,20 +17,19 @@ import SquareComponent from './Square';
  *
  * @return {*}
  */
-function PuzzleComponent() {
-	const { state, dispatch } = usePuzzle();
-	const puzzle = new Puzzle(state, dispatch);
+function PuzzleComponent(props: PuzzleProps) {
+	const { state, puzzle } = props;
 
 	const rows = Array.from(byRows(puzzle.squares, puzzle.size));
 
 	return (
 		<PuzzleContainer size={state.size}>
-			{rows.map(row => (
-				<div className="puzzle-row">
-					{row.map(square => {
+			{rows.map((row, ri) => (
+				<div className="puzzle-row" key={ri}>
+					{row.map((square, si) => {
 						const squareState = selectXY(state.squares, puzzle.size, { x: square.x, y: square.y });
 						return (
-							<SquareComponent square={square} state={squareState} />
+							<SquareComponent key={si} square={square} state={squareState} />
 						);
 					})}
 				</div>

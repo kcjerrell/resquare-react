@@ -15,9 +15,9 @@ interface SquareContainerProps {
 // 8x8: 4, 4x4			8 = 24%
 // 9x9: 3, 3, 3px		9 = 32%
 
-const digitwidths = [18, 22, 22, 16, 18, 22];
-const digitsizes = [2, 1.4, 1.4, 1.0, 1.0, 0.8];
-const selectedsizes = [5, 5, 5, 5, 5, 3];
+export const digitwidths = [18, 22, 22, 16, 18, 22];
+export const digitsizes = [2, 1.4, 1.4, 1.0, 1.0, 0.8];
+export const selectedsizes = [5, 5, 5, 5, 5, 3];
 
 export const SquareContainer = styled.div<SquareContainerProps>`
 	border-color: ${props => props.borderColors};
@@ -139,32 +139,5 @@ export const SquareContainer = styled.div<SquareContainerProps>`
 		/* background: #FFFFFF44; */
 		font-size: ${props => digitsizes[props.size - 4]}rem;
 		font-weight: 500;
-	}
-`;
-
-interface CompareSignProps {
-	angle: number;
-	size: number;
-}
-
-export const CompareSign = styled.div<CompareSignProps>`
-	&.compare-right {
-		font-size: ${props => digitsizes[props.size - 4] + 1}rem;
-		position: absolute;
-		right: 0;
-		z-index: 80;
-		transform: translate(50%, -50%)
-							 rotate(${props => props.angle}deg);
-		top: 50%;
-	}
-
-	&.compare-down {
-		font-size: ${props => digitsizes[props.size - 4] + 1}rem;
-		position: absolute;
-		right: 50%;
-		transform: translate(50%, 50%)
-							 rotate(${props => props.angle}deg);
-		bottom: 0;
-		z-index: 80;
 	}
 `;

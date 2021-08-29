@@ -1,12 +1,14 @@
+import { group } from "console";
 import React, { CSSProperties, MouseEvent, useState } from "react";
 import { useAppDispatch } from "../app/hooks";
 import { RuleTypes } from "../model/rule";
 import { Square } from "../model/square";
 import { SquareState } from "../state/interfaces";
-import { excludeDigit, groupExclude, selectDigit } from "../state/puzzleSlice";
+import { excludeDigit, groupExclude, selectDigit, setHoverGroup } from "../state/puzzleSlice";
 import { getCompare } from "../theme/compare";
 import { getBorderString } from "../utilities/util";
-import { CompareSign, SquareContainer } from "./SquareStyles";
+import CompareOverlay from "./CompareOverlay";
+import { SquareContainer } from "./SquareStyles";
 
 let digitOrder: number[];
 
@@ -52,19 +54,6 @@ interface SquareProps {
 function SquareComponent(props: SquareProps) {
 	const { state, square } = props;
 	const dispatch = useAppDispatch();
-
-	let compareSign;
-	let rightAngle = 0;
-	let downAngle = 0;
-	if (square.group.rule.type === RuleTypes.Compare) {
-		compareSign = getCompare(square.group.color);
-
-		if (state.comparisonRight != null)
-			rightAngle = state.comparisonRight > 0 ? 0 : 180;
-
-		if (state.comparisonBottom != null)
-			downAngle = state.comparisonBottom > 0 ? 90 : 270;
-	}
 
 	const selected = state.selected;
 	const size = square.puzzle.size;
@@ -120,8 +109,17 @@ function SquareComponent(props: SquareProps) {
 		square.selected = 0;
 	}
 
+	const squareOnMouseEnter = () => {
+		dispatch(setHoverGroup(state.group));
+	}
+
+	const squareOnMouseLeave = () => {
+		dispatch(setHoverGroup(-1));
+	}
+
 	return (
-		<SquareContainer size={size} color={square.group.color} borderWidths={borderWidths} borderColors={borderColors}>
+		<SquareContainer size={size} color={square.group.color} borderWidths={borderWidths} borderColors={borderColors}
+			onMouseEnter={squareOnMouseEnter} onMouseLeave={squareOnMouseLeave}>
 
 			{state.isGroupKey &&
 				<div className="square-key">{square.group.rule.toLabel()}</div>
@@ -163,15 +161,13 @@ function SquareComponent(props: SquareProps) {
 				</div>
 			}
 
-			{state.comparisonRight && compareSign != null &&
+			{state.compareRight &&
 				// <div className="square-compare-right">{ state.comparisonRight > 0 ? '>' : '<' }</div>
-				<CompareSign size={size} angle={rightAngle} className="compare-right"
-					dangerouslySetInnerHTML={compareSign} />
+				<CompareOverlay compareRight={state.compareRight} fill={square.group.color} />
 			}
 
-			{state.comparisonBottom && compareSign != null &&
-				<CompareSign size={size} angle={downAngle} className="compare-down"
-					dangerouslySetInnerHTML={compareSign} />
+			{state.compareDown &&
+				<CompareOverlay compareDown={state.compareDown} fill={square.group.color} />
 			}
 		</SquareContainer>
 	)

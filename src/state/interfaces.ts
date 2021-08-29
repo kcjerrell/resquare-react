@@ -7,20 +7,22 @@ export interface SquareState {
 	selected: number;
 	excluded: number[];
 	isGroupKey?: boolean;
-	comparisonRight?: number;
-	comparisonBottom?: number;
+	compareRight?: number;
+	compareDown?: number;
 }
 
 export interface GroupState {
 	rule: RuleTypes;
 	value?: number;
 	color: string;
+	solutions?: number[][];
 }
 
 export interface PuzzleState {
 	size: number;
 	squares: SquareState[];
 	groups: GroupState[];
+	hoverGroup: number;
 }
 
 export class RawPuzzleData {

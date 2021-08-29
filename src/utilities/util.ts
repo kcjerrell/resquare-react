@@ -10,6 +10,12 @@ export function* range(n: number) {
 	}
 }
 
+export function* rangeAB(a: number, b: number) {
+	for (let i = a; i < b; i++) {
+		yield i;
+	}
+}
+
 /**
  * Returns a string that can be used for css attributes that take 4
  * measurements, for instance border-size, margin, padding, corner-radius, etc

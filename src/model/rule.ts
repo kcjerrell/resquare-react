@@ -64,6 +64,15 @@ export function ruleToString(rule: RuleTypes, display = false) {
 	}
 }
 
+export const hintableRules = [
+	RuleTypes.Equals,
+	RuleTypes.Add,
+	RuleTypes.Subtract,
+	RuleTypes.Multiply,
+	RuleTypes.Divide,
+	RuleTypes.Straight
+]
+
 /**
  * Represents a rule for a square groups.
  *
@@ -81,6 +90,10 @@ export class Rule {
 
 	toLabel() {
 		return `${this.value > 0 ? this.value : ''}${ruleToString(this.type, true)}`;
+	}
+
+	formatHint(solution: number[]) {
+		return `${solution.join(` ${ruleToString(this.type, true)} `)} = ${this.value}`;
 	}
 
 	static fromCode(code: string) {

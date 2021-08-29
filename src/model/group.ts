@@ -12,11 +12,14 @@ export class Group {
 	rule: Rule;
 	squares: Square[] = [];
 	color: string;
+	solutions?: number[][];
 
 	constructor(groupState: GroupState) {
 		this.state = groupState;
 		this.rule = new Rule(groupState.rule, groupState.value);
 		this.color = groupState.color;
+
+		this.solutions = groupState.solutions;
 	}
 
 	addSquare(square: Square) {
