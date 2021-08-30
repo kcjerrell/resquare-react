@@ -9,15 +9,12 @@ function GameComponent() {
 	const { state, dispatch } = usePuzzle();
 	const puzzle = new Puzzle(state, dispatch);
 
-	const displayHints = state.hoverGroup >= 0 && puzzle.groups[state.hoverGroup].solutions != null;
+	// const displayHints = state.hoverGroup >= 0 && puzzle.groups[state.hoverGroup].solutions != null;
 
 	return (
 		<GameContainer>
 			<PuzzleComponent state={state} puzzle={puzzle} />
-
-			{displayHints &&
-				<Hints group={puzzle.groups[state.hoverGroup]}/>
-			}
+			<Hints group={puzzle.groups[state.hoverGroup]} />
 		</GameContainer>
 	);
 }
@@ -27,4 +24,7 @@ export default GameComponent;
 const GameContainer = styled.div`
 	display: flex;
 	flex-direction: row;
+	justify-content: center;
+	align-items: flex-start;
+	margin: auto;
 `;

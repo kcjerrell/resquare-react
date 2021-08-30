@@ -45,7 +45,8 @@ const PuzzleContainer = styled.div<{ size: number }>`
 
 	width: 90vh;
 	height: 90vh;
-	margin: auto;
+
+	margin: 1rem;
 
 	display: flex;
 	flex-direction: column;

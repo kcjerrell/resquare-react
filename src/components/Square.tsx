@@ -106,20 +106,22 @@ function SquareComponent(props: SquareProps) {
 	}
 
 	const selectedOnClick = () => {
-		square.selected = 0;
+		const payload = {
+			x: square.x,
+			y: square.y,
+			digit: 0
+		}
+
+		dispatch(selectDigit(payload));
 	}
 
 	const squareOnMouseEnter = () => {
 		dispatch(setHoverGroup(state.group));
 	}
 
-	const squareOnMouseLeave = () => {
-		dispatch(setHoverGroup(-1));
-	}
-
 	return (
 		<SquareContainer size={size} color={square.group.color} borderWidths={borderWidths} borderColors={borderColors}
-			onMouseEnter={squareOnMouseEnter} onMouseLeave={squareOnMouseLeave}>
+			onMouseEnter={squareOnMouseEnter}>
 
 			{state.isGroupKey &&
 				<div className="square-key">{square.group.rule.toLabel()}</div>

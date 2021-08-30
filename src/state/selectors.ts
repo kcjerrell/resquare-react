@@ -11,6 +11,8 @@ export const selectSquare = (x: number, y: number) => {
 	}
 }
 
+export const selectSize = (state: RootState) => state.puzzle.size;
+
 export const usePuzzle = () => {
 	const state = useSelector(selectPuzzle);
 	const dispatch = useAppDispatch();

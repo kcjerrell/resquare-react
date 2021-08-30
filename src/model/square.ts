@@ -40,6 +40,13 @@ export class Square {
 		this.excluded = excluded ? excluded : [];
 		this.puzzle = puzzle;
 	}
+
+	* getAvailableDigits() {
+		for (let i = 1; i <= this.puzzle.size; i++) {
+			if (!this.unavailable.includes(i) && !this.excluded.includes(i))
+				yield i;
+		}
+	}
 }
 
 // The following is no longer valid

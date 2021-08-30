@@ -93,6 +93,9 @@ export class Rule {
 	}
 
 	formatHint(solution: number[]) {
+		if (this.type === RuleTypes.Equals)
+			return `${this.value} = ${this.value}`;
+
 		return `${solution.join(` ${ruleToString(this.type, true)} `)} = ${this.value}`;
 	}
 

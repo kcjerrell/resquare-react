@@ -100,7 +100,7 @@ export function buildPuzzleState(data: RawPuzzleData): PuzzleState {
 			const nSquares = xys.length;
 			const minX = Math.min(...xys.map(xy => xy.x));
 			const maxX = Math.max(...xys.map(xy => xy.x));
-			const minY = Math.max(...xys.map(xy => xy.y));
+			const minY = Math.min(...xys.map(xy => xy.y));
 			const maxY = Math.max(...xys.map(xy => xy.y));
 			const xw = maxX - minX + 1;
 			const yw = maxY - minY + 1;
@@ -113,7 +113,7 @@ export function buildPuzzleState(data: RawPuzzleData): PuzzleState {
 				size,
 				span
 			}
-
+			console.log(opts);
 			group.solutions = generateHints(opts);
 		}
 	})
