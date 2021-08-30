@@ -113,7 +113,7 @@ export function buildPuzzleState(data: RawPuzzleData): PuzzleState {
 				size,
 				span
 			}
-			console.log(opts);
+
 			group.solutions = generateHints(opts);
 		}
 	})

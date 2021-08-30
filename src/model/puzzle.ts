@@ -61,7 +61,7 @@ export class Puzzle {
 			}
 		}
 
-		// Constructed the square helper objects (proxied)
+		// Constructed the square helper objects
 		const squares = squareStates.map((ss, i) => {
 			const { x, y } = getXY(i, this.size);
 

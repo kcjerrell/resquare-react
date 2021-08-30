@@ -38,7 +38,7 @@ interface HintsContainerProps {
 }
 
 const HintsContainer = styled.div<HintsContainerProps>`
-	width: 15rem;
+	width: 20rem;
 	text-align: left;
 
 

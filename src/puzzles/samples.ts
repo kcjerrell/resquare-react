@@ -65,7 +65,7 @@ const sample5 = {
 		0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0,
 	],
-	groupInfo: "+2"
+	groupInfo: "_"
 }
 
 const sample7 = {
@@ -87,7 +87,7 @@ const sample7 = {
 		0, 0, 0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0, 0, 0,
 	],
-	groupInfo: "+2"
+	groupInfo: "_"
 }
 
 const sample8 = {
@@ -111,7 +111,7 @@ const sample8 = {
 		0, 0, 0, 0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0, 0, 0, 0,
 	],
-	groupInfo: "+2"
+	groupInfo: "_"
 }
 
 const sample9 = {
@@ -137,7 +137,7 @@ const sample9 = {
 		0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0, 0, 0, 0, 0,
 	],
-	groupInfo: "+2"
+	groupInfo: "_"
 }
 
 export function loadSample(size: number): RawPuzzleData {
