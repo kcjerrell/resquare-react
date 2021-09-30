@@ -76,4 +76,28 @@ square.selected = 7;
 	- puzzle generator/creator
 */
 
+
+/*
+	I have a tendency to use too any classes, and I think that's just because of coming from C#.
+*/
+
+/*
+	I've decided that I'm not going to bother making the solver/generator in js. I'm going to use C# for that since
+	I'm already halfway there. I'll actually end up doing some kind of partial implementation of the strategies for
+	puzzle hints at some point though.
+
+	Puzzle Hints = hints for solving the entire puzzle
+	Group Hints = possible solutions for each square group
+
+	However, this react app is almost complete as far as playing a puzzle goes.
+
+	Things that need to be done:
+
+		Interface/menu
+		Victory
+		Puzzles!
+		Group hints for Straights
+
+*/
+
 export { };

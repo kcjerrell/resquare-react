@@ -37,7 +37,7 @@ export class Puzzle {
 		this.squares = this.genSquares(squares, dispatch);
 	}
 
-	/** Generatets the square helper objects
+	/** Generates the square helper objects
 	 * 	Current the dispatch is provided to the square, but I am rethinking that.
 	 * 	The idea was to use proxies so properties on the helper object could be
 	 * 	changed directly, and it would automatically update the state. In

@@ -1,7 +1,7 @@
 import { rangeAB } from "../utilities/util";
 import { RuleTypes } from "./rule";
 
-interface GenerateHintsOpts {
+export interface GenerateHintsOpts {
 	ruleType: RuleTypes;
 	value: number;
 	nSquares: number;

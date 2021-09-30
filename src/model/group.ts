@@ -1,21 +1,14 @@
 import { GroupState } from "../state/interfaces";
+import { Solution, validateSolution } from "./hintChecker";
 import { hintableRules, Rule, RuleTypes } from "./rule";
 import { Square } from "./square";
-
-class Solution {
-	solution: number[];
-	isValid: boolean;
-
-	constructor(...items: number[]) {
-		this.solution = items;
-		this.isValid = false;
-	}
-}
 
 /**
  * Represents a group of squares with a shared rule.
  *
  * It is generated dynamically by the puzzle helper class on each state update.
+ * Because this is generated anew every time there is a state update, it made sense (at the time)
+ * to set "selected" and "available" as squares are added to the group.
  */
 export class Group {
 	state: GroupState;
@@ -60,48 +53,9 @@ export class Group {
 				this.__validated = [];
 			}
 			else {
-				this.__validated = this.solutions.map(sol => this.validateSolution(sol));
+				this.__validated = this.solutions.map(sol => validateSolution(sol, this));
 			}
 		}
 		return this.__validated;
-	}
-
-	validateSolution(solution: number[]) {
-		const sol = new Solution(...solution);
-
-		if (!this.hasDigits(sol.solution, this.selected))
-			return sol;
-
-		const without = this.withoutDigits(sol.solution, this.selected);
-
-		if (this.digitsAvailable(without, this.available))
-			sol.isValid = true;
-
-		return sol;
-	}
-
-	hasDigits(solution: number[], digits: number[]) {
-		for (const digit of digits) {
-			if (!solution.includes(digit))
-				return false;
-		}
-		return true;
-	}
-
-	withoutDigits(solution: number[], digits: number[]) {
-		const res = [...solution]
-		for (const digit of digits) {
-			const index = solution.findIndex(d => d === digit)
-			res.splice(index);
-		}
-		return res;
-	}
-
-	digitsAvailable(solution: number[], digits: number[]) {
-		for (const s of solution) {
-			if (!digits.includes(s))
-				return false;
-		}
-		return true;
 	}
 }

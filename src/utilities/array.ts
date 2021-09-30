@@ -37,13 +37,25 @@ export function* selectByXY<T>(items: T[], width: number, xy: XY, excludeCenter 
 	}
 }
 
+export function* selectByY<T>(items: T[], width: number, y: number) {
+	for (let x = 0; x < width; x++) {
+		yield selectXY(items, width, { x, y });
+	}
+}
+
+export function* selectByX<T>(items: T[], width: number, x: number) {
+	for (let y = 0; y < width; y++) {
+		yield selectXY(items, width, { x, y });
+	}
+}
+
 /**
  * @param items a linear array of items, representing a 2d square arrangement
  * @param width the width of the square
  * @param xy the xy coordinate of the desired item
  * @returns Returns the item in the xy coordinate position of a 2d grid of items
  */
-export function selectXY<T>(items: T[], width: number, xy: XY) : T {
+export function selectXY<T>(items: T[], width: number, xy: XY): T {
 	const { x, y } = xy;
 	const index = y * width + x;
 	return items[index];
@@ -120,7 +132,7 @@ export function getNeighborsList<T>(items: T[], width: number, xy: XY) {
  * @param xy the coordinates of the target square
  * @returns a Borders object with the specified item's neighbors
  */
-export function getBordering<T>(squares: T[], width: number, xy: XY) : Borders<T> {
+export function getBordering<T>(squares: T[], width: number, xy: XY): Borders<T> {
 	const { x, y } = xy;
 	const nxy = [
 		{ x: x - 1, y },
@@ -155,6 +167,14 @@ export function* checker<T>(items: T[], width: number, odd = false) {
 	for (let y = 0; y < width; y++) {
 		for (let x = (y + offset) % 2; x < width; x += 2) {
 			yield selectXY(items, width, { x, y });
+		}
+	}
+}
+
+export function* iterIter<T>(items: T[][]) {
+	for (const item of items) {
+		for (const subItem of item) {
+			yield subItem;
 		}
 	}
 }

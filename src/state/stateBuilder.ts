@@ -89,22 +89,7 @@ export function buildPuzzleState(data: RawPuzzleData): PuzzleState {
 	groups.forEach((group, groupIndex) => {
 		if (hintableRules.includes(group.rule)) {
 
-			const xys = [];
-			for (let si = 0; si < squareGroups.length; si++) {
-				if (squareGroups[si] === groupIndex) {
-					const xy = getXY(si, size);
-					xys.push(xy);
-				}
-			}
-
-			const nSquares = xys.length;
-			const minX = Math.min(...xys.map(xy => xy.x));
-			const maxX = Math.max(...xys.map(xy => xy.x));
-			const minY = Math.min(...xys.map(xy => xy.y));
-			const maxY = Math.max(...xys.map(xy => xy.y));
-			const xw = maxX - minX + 1;
-			const yw = maxY - minY + 1;
-			const span = Math.min(xw, yw);
+			const [nSquares, span] = measureGroup(squareGroups, groupIndex, size);
 
 			const opts = {
 				ruleType: group.rule,
@@ -125,4 +110,25 @@ export function buildPuzzleState(data: RawPuzzleData): PuzzleState {
 		squares,
 		hoverGroup: 0
 	};
+}
+
+export function measureGroup(squareGroups: number[], groupIndex: number, size: number) : [nSquares: number, span: number]{
+	const xys = [];
+	for (let si = 0; si < squareGroups.length; si++) {
+		if (squareGroups[si] === groupIndex) {
+			const xy = getXY(si, size);
+			xys.push(xy);
+		}
+	}
+
+	const nSquares = xys.length;
+	const minX = Math.min(...xys.map(xy => xy.x));
+	const maxX = Math.max(...xys.map(xy => xy.x));
+	const minY = Math.min(...xys.map(xy => xy.y));
+	const maxY = Math.max(...xys.map(xy => xy.y));
+	const xw = maxX - minX + 1;
+	const yw = maxY - minY + 1;
+	const span = Math.min(xw, yw);
+
+	return [nSquares, span];
 }
